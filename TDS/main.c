@@ -11,45 +11,45 @@
 
 /////////////////////////////VALUE for (temp,tds)//////////////////////////////////////////////
 
-#define VALUE__40DEGREE_0TDS 380
-#define VALUE__50DEGREE_0TDS 388
-#define VALUE__60DEGREE_0TDS 412
-#define VALUE__70DEGREE_0TDS 446
-#define VALUE__80DEGREE_0TDS 472
+#define VALUE__40DEGREE_0TDS 329
+#define VALUE__50DEGREE_0TDS 336
+#define VALUE__60DEGREE_0TDS 364
+#define VALUE__70DEGREE_0TDS 385
+#define VALUE__80DEGREE_0TDS 413
 
 
-#define VALUE__40DEGREE_25TDS 440
-#define VALUE__50DEGREE_25TDS 472
-#define VALUE__60DEGREE_25TDS 507
-#define VALUE__70DEGREE_25TDS 550
-#define VALUE__80DEGREE_25TDS 580
+#define VALUE__40DEGREE_25TDS 437
+#define VALUE__50DEGREE_25TDS 470
+#define VALUE__60DEGREE_25TDS 503
+#define VALUE__70DEGREE_25TDS 534
+#define VALUE__80DEGREE_25TDS 575
 
 
-#define VALUE__40DEGREE_50TDS 490
-#define VALUE__50DEGREE_50TDS 528
-#define VALUE__60DEGREE_50TDS 565
-#define VALUE__70DEGREE_50TDS 590
-#define VALUE__80DEGREE_50TDS 635
+#define VALUE__40DEGREE_50TDS 485
+#define VALUE__50DEGREE_50TDS 519
+#define VALUE__60DEGREE_50TDS 560
+#define VALUE__70DEGREE_50TDS 597
+#define VALUE__80DEGREE_50TDS 641
 
 
-#define VALUE__40DEGREE_75TDS 553
-#define VALUE__50DEGREE_75TDS 591
-#define VALUE__60DEGREE_75TDS 625
-#define VALUE__70DEGREE_75TDS 643
-#define VALUE__80DEGREE_75TDS 655
+#define VALUE__40DEGREE_75TDS 517
+#define VALUE__50DEGREE_75TDS 556
+#define VALUE__60DEGREE_75TDS 607
+#define VALUE__70DEGREE_75TDS 640
+#define VALUE__80DEGREE_75TDS 680
 
 
-#define VALUE__40DEGREE_100TDS 587
-#define VALUE__50DEGREE_100TDS 623
-#define VALUE__60DEGREE_100TDS 648
-#define VALUE__70DEGREE_100TDS 665
-#define VALUE__80DEGREE_100TDS 710
-
-////////////////////////////////////////////////////////////////////////////////////////////////
+#define VALUE__40DEGREE_100TDS 583
+#define VALUE__50DEGREE_100TDS 619
+#define VALUE__60DEGREE_100TDS 651
+#define VALUE__70DEGREE_100TDS 701
+#define VALUE__80DEGREE_100TDS 739
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-int Determine_TDSintervial(double TEMP_taste,double TDS_taste);
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+int Determine_TDSinterval(double TEMP_taste,double TDS_taste);
 double Determine_SLOPE(double Temp,double TempNext,int TDSConsentration);
 double Determine_THEORETICAL_SLOPE_UP(double TEMP,double TDS,int interval);
 double Determine_THEORETICAL_SLOPE_DOWN(double TEMP,double TDS,int interval);
@@ -70,7 +70,7 @@ int main() {
     
     for (i =80; i!=35; i=i-5) {
         TEMP_predict = i;
-        interval_taste = Determine_TDSintervial(TEMP_taste,TDS_taste);//enter the current TEMP and TDS
+        interval_taste = Determine_TDSinterval(TEMP_taste,TDS_taste);//enter the current TEMP and TDS
         TDS_Theoretical = Determine_THEORETICAL_TDS(TEMP_taste,TDS_taste, interval_taste, TEMP_predict);
         printf("%lf \n",TDS_Theoretical);
     }
@@ -78,49 +78,49 @@ int main() {
     return 0;
 }
 //算ＴＤＳ在哪ㄧ個區間
-int Determine_TDSintervial(double TEMP_taste,double TDS_taste){
-    int intervial=1;//含自己的區間
+int Determine_TDSinterval(double TEMP_taste,double TDS_taste){
+    int interval=1;//含自己的區間
     
     if (50 >= TEMP_taste) {
         
-            if (Determine_SLOPE(40.0, 50.0, 0)*(TEMP_taste - 40)+VALUE__40DEGREE_0TDS >= TDS_taste)     {intervial = 0;}
-            else if (Determine_SLOPE(40.0, 50.0, 25)*(TEMP_taste - 40)+VALUE__40DEGREE_25TDS >= TDS_taste)   {intervial = 25;}
-            else if (Determine_SLOPE(40.0, 50.0, 50)*(TEMP_taste - 40)+VALUE__40DEGREE_50TDS >= TDS_taste)   {intervial = 50;}
-            else if (Determine_SLOPE(40.0, 50.0, 75)*(TEMP_taste - 40)+VALUE__40DEGREE_75TDS >= TDS_taste)   {intervial = 75;}
-            else if (Determine_SLOPE(40.0, 50.0, 100)*(TEMP_taste - 40)+VALUE__40DEGREE_100TDS >= TDS_taste) {intervial = 100;}
-            else if (TDS_taste > Determine_SLOPE(40.0, 50.0, 100)*(TEMP_taste - 40)+VALUE__40DEGREE_100TDS ) {intervial = 100;}
+            if (Determine_SLOPE(40.0, 50.0, 0)*(TEMP_taste - 40)+VALUE__40DEGREE_0TDS >= TDS_taste)     {interval = 0;}
+            else if (Determine_SLOPE(40.0, 50.0, 25)*(TEMP_taste - 40)+VALUE__40DEGREE_25TDS >= TDS_taste)   {interval = 25;}
+            else if (Determine_SLOPE(40.0, 50.0, 50)*(TEMP_taste - 40)+VALUE__40DEGREE_50TDS >= TDS_taste)   {interval = 50;}
+            else if (Determine_SLOPE(40.0, 50.0, 75)*(TEMP_taste - 40)+VALUE__40DEGREE_75TDS >= TDS_taste)   {interval = 75;}
+            else if (Determine_SLOPE(40.0, 50.0, 100)*(TEMP_taste - 40)+VALUE__40DEGREE_100TDS >= TDS_taste) {interval = 100;}
+            else if (TDS_taste > Determine_SLOPE(40.0, 50.0, 100)*(TEMP_taste - 40)+VALUE__40DEGREE_100TDS ) {interval = 100;}
     }
     
     else if (60 >= TEMP_taste) {
         
-            if (Determine_SLOPE(50.0, 60.0, 0)*(TEMP_taste - 50)+VALUE__50DEGREE_0TDS >= TDS_taste)   {intervial = 0;}
-            else  if (Determine_SLOPE(50.0, 60.0, 25)*(TEMP_taste - 50)+VALUE__50DEGREE_25TDS >= TDS_taste)  {intervial = 25;}
-            else  if (Determine_SLOPE(50.0, 60.0, 50)*(TEMP_taste - 50)+VALUE__50DEGREE_50TDS >= TDS_taste)  {intervial = 50;}
-            else  if (Determine_SLOPE(50.0, 60.0, 75)*(TEMP_taste - 50)+VALUE__50DEGREE_75TDS >= TDS_taste)  {intervial = 75;}
-            else  if (Determine_SLOPE(50.0, 60.0, 100)*(TEMP_taste - 50)+VALUE__50DEGREE_100TDS >= TDS_taste) {intervial = 100;}
-            else  if (TDS_taste > Determine_SLOPE(50.0, 60.0, 100)*(TEMP_taste - 50)+VALUE__50DEGREE_100TDS)  {intervial = 100;}
+            if (Determine_SLOPE(50.0, 60.0, 0)*(TEMP_taste - 50)+VALUE__50DEGREE_0TDS >= TDS_taste)   {interval = 0;}
+            else  if (Determine_SLOPE(50.0, 60.0, 25)*(TEMP_taste - 50)+VALUE__50DEGREE_25TDS >= TDS_taste)  {interval = 25;}
+            else  if (Determine_SLOPE(50.0, 60.0, 50)*(TEMP_taste - 50)+VALUE__50DEGREE_50TDS >= TDS_taste)  {interval = 50;}
+            else  if (Determine_SLOPE(50.0, 60.0, 75)*(TEMP_taste - 50)+VALUE__50DEGREE_75TDS >= TDS_taste)  {interval = 75;}
+            else  if (Determine_SLOPE(50.0, 60.0, 100)*(TEMP_taste - 50)+VALUE__50DEGREE_100TDS >= TDS_taste) {interval = 100;}
+            else  if (TDS_taste > Determine_SLOPE(50.0, 60.0, 100)*(TEMP_taste - 50)+VALUE__50DEGREE_100TDS)  {interval = 100;}
     }
     
     else if (70 >= TEMP_taste) {
-            if (Determine_SLOPE(60.0, 70.0, 0)*(TEMP_taste - 60)+VALUE__60DEGREE_0TDS >= TDS_taste)   {intervial = 0;}
-            else if (Determine_SLOPE(60.0, 70.0, 25)*(TEMP_taste - 60)+VALUE__60DEGREE_25TDS >= TDS_taste)  {intervial = 25;}
-            else if (Determine_SLOPE(60.0, 70.0, 50)*(TEMP_taste - 60)+VALUE__60DEGREE_50TDS >= TDS_taste)  {intervial = 50;}
-            else if (Determine_SLOPE(60.0, 70.0, 75)*(TEMP_taste - 60)+VALUE__60DEGREE_75TDS >= TDS_taste)  {intervial = 75;}
-            else if (Determine_SLOPE(60.0, 70.0, 100)*(TEMP_taste - 60)+VALUE__60DEGREE_100TDS >= TDS_taste) {intervial = 100;}
-            else if (TDS_taste > Determine_SLOPE(60.0, 70.0, 100)*(TEMP_taste - 60)+VALUE__60DEGREE_100TDS)  {intervial = 100;}
+            if (Determine_SLOPE(60.0, 70.0, 0)*(TEMP_taste - 60)+VALUE__60DEGREE_0TDS >= TDS_taste)   {interval = 0;}
+            else if (Determine_SLOPE(60.0, 70.0, 25)*(TEMP_taste - 60)+VALUE__60DEGREE_25TDS >= TDS_taste)  {interval = 25;}
+            else if (Determine_SLOPE(60.0, 70.0, 50)*(TEMP_taste - 60)+VALUE__60DEGREE_50TDS >= TDS_taste)  {interval = 50;}
+            else if (Determine_SLOPE(60.0, 70.0, 75)*(TEMP_taste - 60)+VALUE__60DEGREE_75TDS >= TDS_taste)  {interval = 75;}
+            else if (Determine_SLOPE(60.0, 70.0, 100)*(TEMP_taste - 60)+VALUE__60DEGREE_100TDS >= TDS_taste) {interval = 100;}
+            else if (TDS_taste > Determine_SLOPE(60.0, 70.0, 100)*(TEMP_taste - 60)+VALUE__60DEGREE_100TDS)  {interval = 100;}
     }
     
     else {
-            if (Determine_SLOPE(70.0, 80.0, 0)*(TEMP_taste - 70)+VALUE__70DEGREE_0TDS >= TDS_taste)   {intervial = 0;}
-            else if (Determine_SLOPE(70.0, 80.0, 25)*(TEMP_taste - 70)+VALUE__70DEGREE_25TDS >= TDS_taste)  {intervial = 25;}
-            else if (Determine_SLOPE(70.0, 80.0, 50)*(TEMP_taste - 70)+VALUE__70DEGREE_50TDS >= TDS_taste)  {intervial = 50;}
-            else if (Determine_SLOPE(70.0, 80.0, 75)*(TEMP_taste - 70)+VALUE__70DEGREE_75TDS >= TDS_taste)  {intervial = 75;}
-            else if (Determine_SLOPE(70.0, 80.0, 100)*(TEMP_taste - 70)+VALUE__70DEGREE_100TDS >= TDS_taste) {intervial = 100;}
-            else if (TDS_taste > Determine_SLOPE(70.0, 80.0, 100)*(TEMP_taste - 70)+VALUE__70DEGREE_100TDS)  {intervial = 100;}
-            else{intervial=1;}
+            if (Determine_SLOPE(70.0, 80.0, 0)*(TEMP_taste - 70)+VALUE__70DEGREE_0TDS >= TDS_taste)   {interval = 0;}
+            else if (Determine_SLOPE(70.0, 80.0, 25)*(TEMP_taste - 70)+VALUE__70DEGREE_25TDS >= TDS_taste)  {interval = 25;}
+            else if (Determine_SLOPE(70.0, 80.0, 50)*(TEMP_taste - 70)+VALUE__70DEGREE_50TDS >= TDS_taste)  {interval = 50;}
+            else if (Determine_SLOPE(70.0, 80.0, 75)*(TEMP_taste - 70)+VALUE__70DEGREE_75TDS >= TDS_taste)  {interval = 75;}
+            else if (Determine_SLOPE(70.0, 80.0, 100)*(TEMP_taste - 70)+VALUE__70DEGREE_100TDS >= TDS_taste) {interval = 100;}
+            else if (TDS_taste > Determine_SLOPE(70.0, 80.0, 100)*(TEMP_taste - 70)+VALUE__70DEGREE_100TDS)  {interval = 100;}
+            else{interval=1;}
     }
     
-    return intervial;
+    return interval;
 }
 //算溫度區間指定ＴＤＳ斜率
 double Determine_SLOPE(double Temp,double TempNext,int TDSConsentration){
